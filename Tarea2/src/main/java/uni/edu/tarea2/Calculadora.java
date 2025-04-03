@@ -213,47 +213,56 @@ public class Calculadora extends javax.swing.JFrame {
     //error por division entre 0
     private void btnResultActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResultActionPerformed
         String operacion = String.valueOf(combo.getSelectedItem());
-        float num1 = Float.parseFloat(txtnum1.getText());
-        float num2 = Float.parseFloat(txtnum2.getText());
+        float num1;
+        float num2;
         float result = 0;
         int resultInt;
         boolean accept = true;
-        
-        switch(operacion) {
-            case "Sumar":
-                result = num1 + num2;
-                accept = true;
-                break;
-            case "Restar":
-                result = num1 - num2;
-                accept = true;
-                break;
-            case "Multiplicar":
-                result = num1 * num2;
-                accept = true;
-                break;
-            case "Dividir":
-                if(num2 == 0) {
-                    accept = false;
+        try{
+            num1 = Float.parseFloat(txtnum1.getText());
+            num2 = Float.parseFloat(txtnum2.getText());
+                switch(operacion) {
+                case "Sumar":
+                    result = num1 + num2;
+                    accept = true;
                     break;
-                }
-                result = num1 / num2;
-                accept = true;
-        }
-        if(accept) {
-            resultInt = (int) result;
-            if(result == resultInt) {
-                txtresult.setText(String.valueOf(resultInt)); 
-            }   else{
-                txtresult.setText(String.valueOf(result)); 
+                case "Restar":
+                    result = num1 - num2;
+                    accept = true;
+                    break;
+                case "Multiplicar":
+                    result = num1 * num2;
+                    accept = true;
+                    break;
+                case "Dividir":
+                    if(num2 == 0) {
+                        accept = false;
+                        break;
+                    }
+                    result = num1 / num2;
+                    accept = true;
             }
-            ok.setSelected(true);
-            error.setSelected(false);
-        }   else{
-            txtresult.setText("");
-            ok.setSelected(false);
+            if(accept) {
+                resultInt = (int) result;
+                if(result == resultInt) {
+                    txtresult.setText(String.valueOf(resultInt)); 
+                }   else{
+                    txtresult.setText(String.valueOf(result)); 
+                }
+                ok.setSelected(true);
+                error.setSelected(false);
+            }    else{
+                txtresult.setText("");
+                ok.setSelected(false);
+                error.setSelected(true);
+            }
+            
+        }   catch(NumberFormatException e) {
             error.setSelected(true);
+            ok.setSelected(false);
+            txtresult.setText("");
         }
+        
     }//GEN-LAST:event_btnResultActionPerformed
 
     /**
